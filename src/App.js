@@ -1,14 +1,12 @@
 import React, { Component } from "react";
-//import React, { Fragment } from 'react';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import axios from 'axios';
+import './App.css';
 
 // Import components
 import RoomSensors from './components/RoomSensors';
-//import Rooms from './components/Rooms';
 
-import './App.css';
 
 export default class App extends Component {
   constructor(props) {

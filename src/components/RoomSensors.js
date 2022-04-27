@@ -8,7 +8,7 @@ export default class RoomSensors extends Component {
     };
     readData() {
         this.setState({ room_number: this.props.match.params.number })
-        axios.get(`http://localhost:8000/api/room/'${this.props.match.params.number}'/sensors`)
+        axios.get(`http://localhost:8000/api/room/'${this.props.match.params.number}'/sensors/data`)
             .then(res => {
                 this.setState({ sensors: res.data.data });
             })
@@ -25,7 +25,7 @@ export default class RoomSensors extends Component {
         }
     }
     render() {
-        const { room_number, sensors } = this.state;
+        const { room_number, sensors} = this.state;
         if (sensors.length === 0) {
             return (
                 <div>
@@ -37,13 +37,34 @@ export default class RoomSensors extends Component {
             return (
                 <div>
                     <h1>Room: {room_number}</h1>
-                    <ul className="list-group">
+                    <table className="table mt-5 text-center">
+                        <thead>
+                            <tr>
+                                <th>Last measuring</th>
+                                <th>Sensor</th>
+                                <th>Measured value</th>
+                                <th>Unit</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {sensors.map((s, pos) => (
+                                <tr key={s.id}>
+                                    <td>{s.lasttimestamp}</td>
+                                    <td>{s.sensor}</td>
+                                    <td>{s.measuredvalue}</td>
+                                    <td>{s.unit}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+
+                    {/*<ul className="list-group">
                         {sensors.map(s => (
                             <li className="list-group-item" key={s.id}>
-                                {s.sensorname}
+                                {s.Sensor}
                             </li>
                         ))}
-                    </ul>
+                        </ul>*/}
                 </div>
             );
         }
